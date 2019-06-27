@@ -17,10 +17,29 @@ function App() {
   const [shallow, setShallow] = useState(false)
   const [gameInterval, setGameInterval] = useState(1000)
   const [score, setScore] = useState(0)
-
+  const [finished, setFinished] = useState(false)
   const startGame = () => {
     const state = [...data]
     const rnd = Math.floor(Math.random() * state.length + 0)
+    if (finished) {
+      set(prevState =>
+        prevState
+          .map(it =>
+            it.ball
+              ? {
+                  name: it.name,
+                  description: it.description,
+                  css: it.css,
+                  height: it.height,
+                  width: it.width
+                }
+              : it
+          )
+          .map((it, i) => (i === rnd ? { ...it, ball: true } : { ...it }))
+      )
+    }
+
+    setFinished(false)
     const mutable = state.map((it, i) => (i === rnd ? { ...it, ball: true } : { ...it }))
     set([...mutable])
 
@@ -30,27 +49,29 @@ function App() {
     setTimeout(() => {
       clearInterval(interval)
       setDisabled(false)
+      setFinished(true)
     }, 5000)
   }
 
   const define = item => {
-    setDisabled(false)
-    if (item.ball && score === 4) {
+    if (finished) {
+      if (item.ball && score === 4) {
+        setScore(0)
+        alert('All Game you WIN')
+        setFinished(false)
+        return setGameInterval(3000)
+      }
+      if (item.ball) {
+        alert('YOU WIN')
+        setScore(score + 1)
+        setFinished(false)
+        return setGameInterval(gameInterval - score * 200)
+      }
+      setFinished(false)
       setScore(0)
-      alert('All Game you WIN')
-      return setGameInterval(3000)
+      setGameInterval(3000)
+      alert('YOU LOST')
     }
-    if (item.ball) {
-      alert('YOU WIN')
-      setScore(score + 1)
-      console.log(score)
-      // console.log(gameInterval - score * 200)
-      return setGameInterval(gameInterval - score * 200)
-    }
-
-    setScore(0)
-    setGameInterval(3000)
-    alert('YOU LOST')
   }
 
   let height = 0
@@ -73,18 +94,20 @@ function App() {
             key={key}
             className="card"
             style={{ transform: x.interpolate(x => `translate3d(${x}px,0,0)`), ...rest }}>
-            <div className="cell" onClick={() => define(item)} disabled={disabled}>
+            <div className="cell" onClick={() => define(item)}>
               <div className="details" style={{ backgroundImage: item.css }}>
-                {item.ball && <div className={`ball ${shallow ? 'shallow' : ''}`} />}
+                {item.ball && <div className={`ball ${shallow ? 'shallow' : 'shallowsee'}`} />}
               </div>
             </div>
           </animated.div>
         ))}
       </div>
-      <button onClick={startGame} disabled={disabled}>
+      <button onClick={startGame} disabled={disabled} className="btn">
         Start Game
       </button>
-      <div>score:{score}</div>
+      <div className="resScore">
+        Level {score} | score:{score * 30}
+      </div>
     </div>
   )
 }

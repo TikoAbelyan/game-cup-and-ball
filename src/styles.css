@@ -24,8 +24,8 @@ body,
   position: relative;
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto,
     segoe ui, arial, sans-serif;
-  width: 65ch !important;
-  height: 500px !important;
+  width: 56ch !important;
+  height: 300px !important;
 }
 
 .card {
@@ -70,6 +70,30 @@ body,
   transition: 1s all;
 }
 
-.shallow {
-  /* opacity: 0; */
+/* .shallow {
+  opacity: 0;
+} */
+.shallowsee{
+  opacity:1
+}
+.btn{
+  width: 200px;
+  height: 50px;
+  outline: none;
+  border: none;
+  background: grey;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  font-size:18px;
+  color:#fff;
+}
+.btn:hover{
+  box-shadow: 2px 4px 15px #888888;
+  color:#000;
+  cursor: pointer
+}
+.resScore{
+  text-align: center;
+  font-size: 25px;
 }
