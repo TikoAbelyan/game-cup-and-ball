@@ -67,7 +67,7 @@ body,
   border-radius: 100%;
   width: 20px;
   height: 20px;
-  transition: 1s all;
+  /* transition: 1s all; */
 }
 
 /* .shallow {

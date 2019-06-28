@@ -15,7 +15,7 @@ function App() {
   const [rows, set] = useState(data)
   const [disabled, setDisabled] = useState(false)
   const [shallow, setShallow] = useState(false)
-  const [gameInterval, setGameInterval] = useState(1000)
+  const [gameInterval, setGameInterval] = useState(2000)
   const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
   const startGame = () => {
@@ -50,7 +50,7 @@ function App() {
       clearInterval(interval)
       setDisabled(false)
       setFinished(true)
-    }, 5000)
+    }, 10000)
   }
 
   const define = item => {
@@ -106,7 +106,7 @@ function App() {
         Start Game
       </button>
       <div className="resScore">
-        Level {score} | score:{score * 30}
+        Max level 5/{score} | score:150/{score * 30}
       </div>
     </div>
   )
