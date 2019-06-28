@@ -70,12 +70,10 @@ body,
   /* transition: 1s all; */
 }
 
-/* .shallow {
+.shallow {
   opacity: 0;
-} */
-.shallowsee{
-  opacity:1
 }
+
 .btn{
   width: 200px;
   height: 50px;

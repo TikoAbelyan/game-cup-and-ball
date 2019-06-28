@@ -6,12 +6,6 @@ import data from './data'
 import './styles.css'
 
 function App() {
-  // useEffect(() => {
-  //   const state = [...data]
-  //   const rnd = Math.floor(Math.random() * state.length + 0)
-  //   const mutable = state.map((it, i) => (i === rnd ? { ...it, ball: true } : { ...it }))
-  //   set([...mutable])
-  // }, [])
   const [rows, set] = useState(data)
   const [disabled, setDisabled] = useState(false)
   const [shallow, setShallow] = useState(false)
@@ -19,6 +13,7 @@ function App() {
   const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
   const startGame = () => {
+    setShallow(false)
     const state = [...data]
     const rnd = Math.floor(Math.random() * state.length + 0)
     if (finished) {
@@ -44,7 +39,7 @@ function App() {
     set([...mutable])
 
     setDisabled(true)
-    setTimeout(() => setShallow(true), 1000)
+    setTimeout(() => setShallow(true), gameInterval - score * 200)
     const interval = setInterval(() => set(shuffle), gameInterval)
     setTimeout(() => {
       clearInterval(interval)
